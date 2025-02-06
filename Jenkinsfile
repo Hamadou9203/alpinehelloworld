@@ -1,7 +1,7 @@
 pipeline {
     environment{
         IMAGE_NAME="web-app-jenkins"
-        IMAGE_TAG="latest"
+        TAG="latest"
         STG_URL="ec2-3-86-82-158.compute-1.amazonaws.com"
         PROD_URL="ec2-3-92-132-173.compute-1.amazonaws.com"
         USR_REGISTRY="meskine"
