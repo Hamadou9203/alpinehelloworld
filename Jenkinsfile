@@ -30,7 +30,7 @@ pipeline {
             agent none 
             steps{
                 script{
-                    sh '"
+                    sh '''
                     
                     docker run -d -p $EXT_PORT:$INT_PORT -e PORT=$INT_PORT --name $CONTAINER_NAME $IMAGE_NAME:$TAG
                     sleep 10
@@ -38,7 +38,7 @@ pipeline {
                     sleep 5
                     docker stop $CONTAINER_NAME
                     docker rm   $CONTAINER_NAME
-                    "'
+                    '''
                 }
             }
         }
