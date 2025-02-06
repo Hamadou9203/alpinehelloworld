@@ -6,7 +6,7 @@ pipeline {
         PROD_URL="ec2-3-92-132-173.compute-1.amazonaws.com"
         USR_REGISTRY="meskine"
         EXT_PORT="80"
-        INT_PORT=$PORT
+        INT_PORT="5000"
         CONTAINER_NAME="alpine-app"
         DOMAIN="172.17.0.1"
         SSH_USER="ubuntu"
@@ -81,6 +81,7 @@ pipeline {
             agent none 
             environnement{
               expression { GIT_BRANCH == 'origin/master' }
+              SSH_KEY = credentials('aws-credentials')
             }
             steps{
                 script{
