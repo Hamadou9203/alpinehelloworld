@@ -77,6 +77,10 @@ pipeline {
         }
         stage('test staging'){
             agent any 
+            when{
+              expression { GIT_BRANCH == 'origin/master' }
+             
+            }
             steps{
                 script{
                     echo " test staging"
@@ -106,6 +110,10 @@ pipeline {
         }
         stage('test production'){
             agent any 
+            when{
+              expression { GIT_BRANCH == 'origin/master' }
+             
+            }
             steps{
                 script{
                     echo " test production"
