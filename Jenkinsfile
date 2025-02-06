@@ -1,5 +1,5 @@
 pipeline {
-    environnement{
+    environment{
         IMAGE_NAME="web-app-jenkins"
         IMAGE_TAG="latest"
         STG_URL="ec2-3-86-82-158.compute-1.amazonaws.com"
@@ -44,7 +44,7 @@ pipeline {
         }
         stage('release'){
             agent none 
-            environnement{
+            environment{
                DOCKERHUB_PWD = credentials('dockerhub-credentials')
             }
             steps{
@@ -59,7 +59,7 @@ pipeline {
         }
         stage("Deploy-staging"){
             agent none 
-            environnement{
+            environment{
               expression { GIT_BRANCH == 'origin/master' }
               
             }
@@ -79,7 +79,7 @@ pipeline {
         }
         stage("Deploy-prod"){
             agent none 
-            environnement{
+            environment{
               expression { GIT_BRANCH == 'origin/master' }
              
             }
