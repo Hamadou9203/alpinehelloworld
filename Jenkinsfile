@@ -26,11 +26,10 @@ pipeline {
             }
         }
         stage("Test-Acceptance"){
-            agent none 
+            agent any 
             steps{
                 script{
                     sh '''
-                    
                     docker run -d -p $EXT_PORT:$INT_PORT -e PORT=$INT_PORT --name $CONTAINER_NAME $IMAGE_NAME:$TAG
                     sleep 10
                     curl http://$DOMAIN:$EXT_PORT | grep -q 'Hello'
@@ -42,7 +41,7 @@ pipeline {
             }
         }
         stage('release'){
-            agent none 
+            agent any 
             environment{
                DOCKERHUB_PWD = credentials('dockerhub-credentials')
             }
