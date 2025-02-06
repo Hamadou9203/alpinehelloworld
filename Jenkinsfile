@@ -61,14 +61,14 @@ pipeline {
             agent none 
             environnement{
               expression { GIT_BRANCH == 'origin/master' }
-              SSH_KEY = credentials('aws-credentials')
+              
             }
             steps{
                 script{
                     echo "deploying to shell-script to ec2"
                     def pullcmd="docker push $USR_REGISTRY/$IMAGE_NAME:$TAG"
                     def runcmd="docker run -d -p $EXT_PORT:$INT_PORT -e PORT=$INT_PORT --name $CONTAINER_NAME $IMAGE_NAME:$TAG"
-                    sshagent(['ec2']){
+                    sshagent(['aws-credentials']){
                        sh "ssh -o StrictHostKeyChecking=no $SSH_USER@${STG_URL} ${pullcmd}"
                        sh "ssh -o StrictHostKeyChecking=no $SSH_USER@${STG_URL} ${runcmd}"
                     }
@@ -81,14 +81,14 @@ pipeline {
             agent none 
             environnement{
               expression { GIT_BRANCH == 'origin/master' }
-              SSH_KEY = credentials('aws-credentials')
+             
             }
             steps{
                 script{
                     echo "deploying to shell-script to ec2 production"
                     def pullcmd="docker push $USR_REGISTRY/$IMAGE_NAME:$TAG"
                     def runcmd="docker run -d -p $EXT_PORT:$INT_PORT -e PORT=$INT_PORT --name $CONTAINER_NAME $IMAGE_NAME:$TAG"
-                    sshagent(['ec2']){
+                    sshagent(['aws-credentials']){
                        sh "ssh -o StrictHostKeyChecking=no $SSH_USER@${PROD_URL} ${pullcmd}"
                        sh "ssh -o StrictHostKeyChecking=no $SSH_USER@${PROD_URL} ${runcmd}"
                     }
