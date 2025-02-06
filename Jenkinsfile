@@ -75,6 +75,15 @@ pipeline {
             }
 
         }
+        stage('test staging'){
+            agent any 
+            steps{
+                script{
+                    echo " test staging"
+                    sh " curl http://${STG_URL}:$EXT_PORT | grep -q 'Hello'"
+                }  
+            }
+        }
         stage("Deploy-prod"){
             agent any
             when{
@@ -94,6 +103,15 @@ pipeline {
                 }
             }
 
+        }
+        stage('test production'){
+            agent any 
+            steps{
+                script{
+                    echo " test production"
+                    sh " curl http://${PROD_URL}:$EXT_PORT | grep -q 'Hello'"
+                }  
+            }
         }
     }
 }
