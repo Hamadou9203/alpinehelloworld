@@ -2,8 +2,8 @@ pipeline {
     environnement{
         IMAGE_NAME="web-app-jenkins"
         IMAGE_TAG="latest"
-        STG_URL=$URL_PREPROD
-        PROD_URL=$URL_PROD
+        STG_URL="ec2-3-86-82-158.compute-1.amazonaws.com"
+        PROD_URL="ec2-3-92-132-173.compute-1.amazonaws.com"
         USR_REGISTRY="meskine"
         EXT_PORT="80"
         INT_PORT=$PORT
