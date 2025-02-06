@@ -61,6 +61,7 @@ pipeline {
             agent none 
             environnement{
               expression { GIT_BRANCH == 'origin/master' }
+              SSH_KEY = credentials('aws-credentials')
             }
             steps{
                 script{
