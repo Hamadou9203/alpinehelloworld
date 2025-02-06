@@ -106,8 +106,8 @@ pipeline {
                     def pullcmd="docker pull $USR_REGISTRY/$IMAGE_NAME:$TAG"
                     def runcmd="docker run -d -p $EXT_PORT:$INT_PORT -e PORT=$INT_PORT --name $CONTAINER_NAME $USR_REGISTRY/$IMAGE_NAME:$TAG"
                     sshagent(['aws-credentials']){
-                       sh "ssh -o StrictHostKeyChecking=no $SSH_USER@${STG_URL} ${stopcmd}"
-                       sh "ssh -o StrictHostKeyChecking=no $SSH_USER@${STG_URL} ${rmvcmd}"
+                       sh "ssh -o StrictHostKeyChecking=no $SSH_USER@${PROD_URL} ${stopcmd}"
+                       sh "ssh -o StrictHostKeyChecking=no $SSH_USER@${PROD_URL} ${rmvcmd}"
                        sh "ssh -o StrictHostKeyChecking=no $SSH_USER@${PROD_URL} ${pullcmd}"
                        sh "ssh -o StrictHostKeyChecking=no $SSH_USER@${PROD_URL} ${runcmd}"
                     }
