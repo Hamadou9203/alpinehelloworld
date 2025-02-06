@@ -20,7 +20,7 @@ pipeline {
                 script{
                     sh '''
                     docker build -t $IMAGE_NAME:$TAG .
-                    docker save -o alpineweb.war $IMAGE_NAME:$TAG
+        
                     '''
                 }
 
