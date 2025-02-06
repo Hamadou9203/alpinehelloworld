@@ -58,8 +58,8 @@ pipeline {
             }
         }
         stage("Deploy-staging"){
-            agent none 
-            environment{
+            agent any 
+            when{
               expression { GIT_BRANCH == 'origin/master' }
               
             }
@@ -78,8 +78,8 @@ pipeline {
 
         }
         stage("Deploy-prod"){
-            agent none 
-            environment{
+            agent any
+            when{
               expression { GIT_BRANCH == 'origin/master' }
              
             }
