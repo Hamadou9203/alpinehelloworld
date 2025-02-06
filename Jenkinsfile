@@ -65,8 +65,8 @@ pipeline {
                 script{
                     echo "deploying to shell-script to ec2"
                     def pullcmd="docker pull $USR_REGISTRY/$IMAGE_NAME:$TAG"
-                    def stopcmd=" docker stop $CONTAINER_NAME"
-                    def rmvcmd=" docker rm $CONTAINER_NAME"
+                    def stopcmd=" docker stop $CONTAINER_NAME || echo 'Container not running'"
+                    def rmvcmd=" docker rm $CONTAINER_NAME || echo 'Container not found'"
                     def runcmd="docker run -d -p $EXT_PORT:$INT_PORT -e PORT=$INT_PORT --name $CONTAINER_NAME $USR_REGISTRY/$IMAGE_NAME:$TAG"
                     sshagent(['aws-credentials']){
                        sh "ssh -o StrictHostKeyChecking=no $SSH_USER@${STG_URL} ${stopcmd}"
@@ -101,8 +101,8 @@ pipeline {
             steps{
                 script{
                     echo "deploying to shell-script to ec2 production"
-                    def stopcmd=" docker stop $CONTAINER_NAME"
-                    def rmvcmd=" docker rm $CONTAINER_NAME"
+                    def stopcmd=" docker stop $CONTAINER_NAME || echo 'Container not running"
+                    def rmvcmd=" docker rm $CONTAINER_NAME || echo 'Container not found'"
                     def pullcmd="docker pull $USR_REGISTRY/$IMAGE_NAME:$TAG"
                     def runcmd="docker run -d -p $EXT_PORT:$INT_PORT -e PORT=$INT_PORT --name $CONTAINER_NAME $USR_REGISTRY/$IMAGE_NAME:$TAG"
                     sshagent(['aws-credentials']){
